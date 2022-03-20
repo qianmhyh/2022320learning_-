@@ -1,37 +1,48 @@
-## Welcome to GitHub Pages
+```cpp
 
-You can use the [editor on GitHub](https://github.com/qianmhyh/2022320learning_-/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+#include<bits/stdc++.h>
+using namespace std;
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+#define MAXN 100005
 
-### Markdown
+struct p{
+	int to,l;
+};
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+vector <int> p[MAXN]; 
+int n,m,start,fin,ans[MAXN];
 
-```markdown
-Syntax highlighted code block
+void solve(int u,int v)
+{
+	if(ans[u]!=0) return; 
+	
+	ans[u]=v;
+	
+	for(int j=0;j<p[u].size();j++)//n 为点数
+	{
+		solve(p[u][j],v);
+	} 
+}
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/qianmhyh/2022320learning_-/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+int main()
+{
+	cin>>n>>m;
+	for(int i=1;i<=m;i++)
+	{
+		cin>>start>>fin;//start 起点  fin 终点 
+		p[fin].push_back(start);//反向构图 
+	}
+	
+	for(int i=n;i>=1;i--)
+	{
+		solve(i,i);
+	}
+	
+	for(int i=1;i<=n;i++)
+	{
+		cout<<ans[i]<<' ';
+	}
+	return 0;
+}
+``` 
+    
